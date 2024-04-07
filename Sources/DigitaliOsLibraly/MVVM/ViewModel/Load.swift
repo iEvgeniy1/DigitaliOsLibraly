@@ -52,7 +52,7 @@ public var lang: [String:String] = [:]
 // Так как Data (изображения) много весят, то тут они кэшируются. И чтобы их обновить нужно принудительно выставлять ключу словаря значение nil!
 var cacheData: [String:Data] = [:]
 
-var mainHost: String = "https://prstar.ru"
+
 
 public class Load<GetType: Codable>: ObservableObject {
     
