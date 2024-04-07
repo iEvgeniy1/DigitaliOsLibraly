@@ -27,7 +27,11 @@ enum ShowView: Equatable {
 
 public struct Bar : View {
     
-    public init() { }
+    public init(mainHost host: String? = nil) {
+        if let host = host {
+            mainHost = host
+        }
+    }
     
     @State var mark: ShowView = .catalog
     
