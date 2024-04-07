@@ -4,7 +4,7 @@
 //
 //  Created by EVGENIY DAN on 09.06.2020.
 //  Copyright © 2020 EVGENIY DAN. All rights reserved.
-//
+//  Hello
 
 import SwiftUI
 
@@ -72,17 +72,6 @@ extension UIColor {
             self.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         }
     }
-}
-
-extension Color {
-    static let yellowSet            = Color("yellowSet")
-    static let textWhiteDarkSet     = Color("textWhiteDarkSet")
-    static let textDarkWhiteSet     = Color("textDarkWhiteSet")
-    static let backgroundCard       = Color("backgroundCard")
-    static let textCard             = Color("textCard")
-    static let shadowCard           = Color("shadowCard")
-    static let backgroundSection    = Color("backgroundSection")
-//    static let shoppingCartEmpty    = Color("shoppingCartEmpty")
 }
 
 

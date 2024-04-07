@@ -6,6 +6,21 @@
 //  Copyright © 2021 EVGENIY DAN. All rights reserved.
 //
 
+import SwiftUI
+
+extension Color {
+    static let yellowSet            = Color("yellowSet")
+    static let textWhiteDarkSet     = Color("textWhiteDarkSet")
+    static let textDarkWhiteSet     = Color("textDarkWhiteSet")
+    static let backgroundCard       = Color("backgroundCard")
+    static let textCard             = Color("textCard")
+    static let shadowCard           = Color("shadowCard")
+    static let backgroundSection    = Color("backgroundSection")
+    static let shoppingCartEmpty    = Color("shoppingCartEmpty")
+}
+
+var mainHost: String = "https://prstar.ru"
+
 //import SwiftUI
 //
 //
