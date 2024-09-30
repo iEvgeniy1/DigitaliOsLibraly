@@ -26,84 +26,92 @@ struct AddressView: View {
     }
     var body: some View {
         VStack(alignment: .center) {
-            let addressDelivery = lang["user_addressForDelivery"] ?? "Delivery address"
-            Text(addressDelivery)
             
-            Spacer()
-            
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["country"] ?? "Country")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["country"] ?? "Country", text: self.$country)
-                    .modifier(TextFieldModifier())
-                    .background(alertCountry)
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        alertCountry = .clear
+            ScrollView {
+                let addressDelivery = lang["user_addressForDelivery"] ?? "Delivery address"
+                Text(addressDelivery)
+                
+                Spacer()
+                
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["country"] ?? "Country")
+                        Spacer()
                     }
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["city"] ?? "City")
-                    Spacer()
+                    .padding(.leading, 21.0)
+                    TextField(lang["country"] ?? "Country", text: self.$country)
+                        .modifier(TextFieldModifier())
+                        .background(alertCountry)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            alertCountry = .clear
+                        }
                 }
-                .padding(.leading, 21.0)
-                TextField(lang["city"] ?? "City", text: self.$city)
-                    .modifier(TextFieldModifier())
-                    .background(alertCity)
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        alertCity = .clear
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["city"] ?? "City")
+                        Spacer()
                     }
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["address"] ?? "Address")
-                    Spacer()
+                    .padding(.leading, 21.0)
+                    TextField(lang["city"] ?? "City", text: self.$city)
+                        .modifier(TextFieldModifier())
+                        .background(alertCity)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            alertCity = .clear
+                        }
                 }
-                .padding(.leading, 21.0)
-                TextField(lang["address"] ?? "Address", text: self.$address)
-                    .modifier(TextFieldModifier())
-                    .background(alertAddress)
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        alertAddress = .clear
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["address"] ?? "Address")
+                        Spacer()
                     }
-            }
-            
-            Spacer()
-            
-            let okText = lang["looksGood"] ??  "Everything is fine!"
-            
-            Button(action: {
-                user.path = "/api/cabinet/addressPut"
-                user.value?.country = country
-                user.value?.city = city
-                user.value?.address = address
-                if country == "" {
-                    alertCountry = .red
-                } else if city == "" {
-                    alertCity = .red
-                } else if address == "" {
-                    alertAddress = .red
-                } else {
-                    showingAlert = true
-                    user.post()
+                    .padding(.leading, 21.0)
+                    TextField(lang["address"] ?? "Address", text: self.$address)
+                        .modifier(TextFieldModifier())
+                        .background(alertAddress)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            alertAddress = .clear
+                        }
                 }
-            }) {
-                let save = lang["save"] ??  "Save"
-                ProfileButton(text: save)
-                    .padding(.top, 3.0)
-            }
-            .alert(okText, isPresented: $showingAlert) {
-                        Button("OK", role: .cancel) { }
+                
+                Spacer()
+                
+                let okText = lang["looksGood"] ??  "Everything is fine!"
+                
+                Button(action: {
+                    user.path = "/api/cabinet/addressPut"
+                    user.value?.country = country
+                    user.value?.city = city
+                    user.value?.address = address
+                    if country == "" {
+                        alertCountry = .red
+                    } else if city == "" {
+                        alertCity = .red
+                    } else if address == "" {
+                        alertAddress = .red
+                    } else {
+                        showingAlert = true
+                        user.post()
                     }
+                }) {
+                    let save = lang["save"] ??  "Save"
+                    ProfileButton(text: save)
+                        .padding(.top, 3.0)
+                }
+                .alert(okText, isPresented: $showingAlert) {
+                    Button("OK", role: .cancel) { }
+                }
+            }
             
         }
         .padding(.leading, 20.0)
+        .onTapGesture {
+            print("All EditUserView taped")
+            UIApplication.shared.endEditing()
+        }
+        .keyboardResponsive()
         .onAppear {
             user.get {
                 country = user.value?.country ?? "no country"

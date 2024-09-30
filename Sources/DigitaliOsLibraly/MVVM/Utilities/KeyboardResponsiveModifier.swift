@@ -12,24 +12,25 @@ import SwiftUI
 // чтобы работало поднятие клавиатуры используется функция .keyboardResponsive()
 public struct KeyboardResponsiveModifier: ViewModifier {
     public init() { }
-    @State public var offset: CGFloat = 0
+    @State public var top: CGFloat = 0
+    @State public var bottom: CGFloat = 0
     
     public func body(content: Content) -> some View {
         content
-            .padding(.bottom, offset)
+            .padding(.top, top)
+            .padding(.bottom, bottom)
             .onAppear {
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
-//                    let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-//                    let height = value.height
+                    let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                     withAnimation(.default) {
-//                        print("KeyboardResponsive: height \(height), bottomInset \(bottomInset)")
-//                        self.offset = height - (bottomInset ?? 0) //- 60 // 60 это высота моего  кастомного tabBar
-                        self.offset = -65
+                        self.top = 35
+                        self.bottom = value.height-75
                     }
                 }
                 
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
-                    self.offset = 0
+                    self.top = 0
+                    self.bottom = 0
                 }
         }
     }

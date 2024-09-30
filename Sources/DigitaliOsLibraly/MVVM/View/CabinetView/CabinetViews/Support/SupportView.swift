@@ -129,6 +129,11 @@ struct SupportView: View {
             }
             .padding(.vertical)
         }
+        .onTapGesture {
+            print("All EditUserView taped")
+            UIApplication.shared.endEditing()
+        }
+        .keyboardResponsive()
         .onAppear {
             if testVeiw {
                 testInit()

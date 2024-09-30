@@ -11,6 +11,7 @@ struct DeleteView: View {
     @StateObject var message: Load<Message> = .init("/api/cabinet/getTickets")
     @StateObject var user = Load<User>("/api/login/getUserBySession")
     @State var text = ""
+    @State var offset: CGFloat = 0
     @State var height: CGFloat = 35
     @State var width = UIScreen.main.bounds.width - 100
     var testVeiw: Bool = false
@@ -85,10 +86,7 @@ struct DeleteView: View {
                 }
                 .padding([.leading, .bottom, .trailing])
             }
-            .onTapGesture {
-                print("All EditUserView taped")
-                UIApplication.shared.endEditing()
-            }
+            
             
             HStack {
                 
@@ -134,6 +132,12 @@ struct DeleteView: View {
             }
             .padding(.vertical)
         }
+        .padding(.bottom, offset)
+        .onTapGesture {
+            print("All EditUserView taped")
+            UIApplication.shared.endEditing()
+        }
+        .keyboardResponsive()
         .onAppear {
             if testVeiw {
                 testInit()

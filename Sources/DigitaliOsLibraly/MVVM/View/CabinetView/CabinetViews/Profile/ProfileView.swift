@@ -29,119 +29,128 @@ struct ProfileView: View {
     }
     var body: some View {
         VStack(alignment: .center) {
-            let profileData = lang["profileData"] ?? "Profile Data"
-            Text(profileData)
             
-            Spacer()
-            
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["name"] ?? "Name")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["name"] ?? "Name", text: self.$name)
-                    .modifier(TextFieldModifier())
-                    .cornerRadius(10)
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["surname"] ?? "Surname")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["surname"] ?? "Surname", text: self.$surname)
-                    .modifier(TextFieldModifier())
-                    .cornerRadius(10)
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["mail"] ?? "Email")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["mail"] ?? "Email", text: self.$mail)
-                    .modifier(TextFieldModifier())
-                    .cornerRadius(10)
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["phone"] ?? "Phone")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["phone"] ?? "Phone", text: self.$phone)
-                    .modifier(TextFieldModifier())
-                    .cornerRadius(10)
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["info_forgetKeywords"] ?? "Change password")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["password"] ?? "Password", text: self.$password)
-                    .modifier(TextFieldModifier())
-                    .background(alertColorPassword)
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        alertColorPassword = .clear
-                    }
-            }
-            VStack(spacing: 1) {
-                HStack {
-                    Text(lang["user_createNewPassword"] ?? "Repeat new password")
-                    Spacer()
-                }
-                .padding(.leading, 21.0)
-                TextField(lang["user_repeatPassword"] ?? "Repeat password", text: self.$newPassword)
-                    .modifier(TextFieldModifier())
-                    .background(alertColorNewPassword)
-                    .cornerRadius(10)
-                    .onTapGesture {
-                        alertColorNewPassword = .clear
-                    }
-            }
-            
-            Spacer()
-            
-            let okText = lang["looksGood"] ??  "Ok"
-            
-            Button(action: {
-                user.path = "/api/cabinet/profilePut"
-                user.value?.name = name
-                user.value?.surname = surname
-                user.value?.mail = mail
-                user.value?.phone = phone
-                user.value?.password = password
-                user.value?.picture = ""
+            ScrollView {
+                let profileData = lang["profileData"] ?? "Profile Data"
+                Text(profileData)
                 
-                if password != "" {
-                    if password == newPassword {
-                        userPost()
-                    } else {
-                        if newPassword == "" {
-                            alertColorNewPassword = .red
-                        } else {
-                            alertColorPassword = .red
-                            alertColorNewPassword = .red
+                Spacer()
+                
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["name"] ?? "Name")
+                        Spacer()
+                    }
+                    .padding(.leading, 21.0)
+                    TextField(lang["name"] ?? "Name", text: self.$name)
+                        .modifier(TextFieldModifier())
+                        .cornerRadius(10)
+                }
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["surname"] ?? "Surname")
+                        Spacer()
+                    }
+                    .padding(.leading, 21.0)
+                    TextField(lang["surname"] ?? "Surname", text: self.$surname)
+                        .modifier(TextFieldModifier())
+                        .cornerRadius(10)
+                }
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["mail"] ?? "Email")
+                        Spacer()
+                    }
+                    .padding(.leading, 21.0)
+                    TextField(lang["mail"] ?? "Email", text: self.$mail)
+                        .modifier(TextFieldModifier())
+                        .cornerRadius(10)
+                }
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["phone"] ?? "Phone")
+                        Spacer()
+                    }
+                    .padding(.leading, 21.0)
+                    TextField(lang["phone"] ?? "Phone", text: self.$phone)
+                        .modifier(TextFieldModifier())
+                        .cornerRadius(10)
+                }
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["info_forgetKeywords"] ?? "Change password")
+                        Spacer()
+                    }
+                    .padding(.leading, 21.0)
+                    TextField(lang["password"] ?? "Password", text: self.$password)
+                        .modifier(TextFieldModifier())
+                        .background(alertColorPassword)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            alertColorPassword = .clear
                         }
+                }
+                VStack(spacing: 1) {
+                    HStack {
+                        Text(lang["user_createNewPassword"] ?? "Repeat new password")
+                        Spacer()
                     }
-                } else {
-                    userPost()
+                    .padding(.leading, 21.0)
+                    TextField(lang["user_repeatPassword"] ?? "Repeat password", text: self.$newPassword)
+                        .modifier(TextFieldModifier())
+                        .background(alertColorNewPassword)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            alertColorNewPassword = .clear
+                        }
                 }
                 
-            }) {
-                let save = lang["save"] ??  "Save"
-                ProfileButton(text: save)
-                    .padding(.top, 3.0)
-            }
-            .alert(okText, isPresented: $showingAlert) {
-                        Button("OK", role: .cancel) { }
+                Spacer()
+                
+                let okText = lang["looksGood"] ??  "Ok"
+                
+                Button(action: {
+                    user.path = "/api/cabinet/profilePut"
+                    user.value?.name = name
+                    user.value?.surname = surname
+                    user.value?.mail = mail
+                    user.value?.phone = phone
+                    user.value?.password = password
+                    user.value?.picture = ""
+                    
+                    if password != "" {
+                        if password == newPassword {
+                            userPost()
+                        } else {
+                            if newPassword == "" {
+                                alertColorNewPassword = .red
+                            } else {
+                                alertColorPassword = .red
+                                alertColorNewPassword = .red
+                            }
+                        }
+                    } else {
+                        userPost()
                     }
+                    
+                }) {
+                    let save = lang["save"] ??  "Save"
+                    ProfileButton(text: save)
+                        .padding(.top, 3.0)
+                }
+                .alert(okText, isPresented: $showingAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
+            }
+            
             
         }
         .padding(.leading, 20.0)
+        .onTapGesture {
+            print("All EditUserView taped")
+            UIApplication.shared.endEditing()
+        }
+        .keyboardResponsive()
         .onAppear {
             user.get {
                 name = user.value?.name ?? "no name"

@@ -136,11 +136,11 @@ struct LoginView: View {
                 .padding(.top, 30)
 //                .navigationBarTitle(Text(authorization), displayMode: .inline)
             }
-            
             .onTapGesture {
                 print("All EditUserView taped")
                 UIApplication.shared.endEditing()
             }
+            .keyboardResponsive()
             .alert(isPresented: $showAlert) {
                 Alert(title: Text(fixError), message: Text(alertMessage), dismissButton: .default(Text(ok)))
             }
