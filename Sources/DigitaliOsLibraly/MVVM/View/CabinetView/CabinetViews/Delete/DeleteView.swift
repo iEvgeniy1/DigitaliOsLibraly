@@ -85,6 +85,10 @@ struct DeleteView: View {
                 }
                 .padding([.leading, .bottom, .trailing])
             }
+            .onTapGesture {
+                print("All EditUserView taped")
+                UIApplication.shared.endEditing()
+            }
             
             HStack {
                 
