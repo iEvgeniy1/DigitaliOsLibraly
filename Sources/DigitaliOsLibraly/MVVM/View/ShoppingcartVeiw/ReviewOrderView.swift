@@ -59,6 +59,7 @@ struct ReviewOrderView: View {
                 Text(lang["orderEndedGoToCabinet"] ?? "The order has been placed, go to your personal account ...")
                     .multilineTextAlignment(.center)
                     .onAppear {
+                        
                         user.path = "/api/checkout/goToCabinet/"
                         user.post() {
                             print("Order created go to cabinet: \(String(describing: user.value?.thisOrderIsntCreated))")
@@ -97,6 +98,7 @@ struct ReviewOrderView: View {
             
         }
         .onAppear {
+            Load<String>("/api/checkout/review/").get()
             user.get() {
                 if user.value?.userType == .customerWithoutPassword {
                     showCreatePassword = true

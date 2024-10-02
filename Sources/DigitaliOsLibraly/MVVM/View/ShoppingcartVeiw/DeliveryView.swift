@@ -128,7 +128,7 @@ struct DeliveryView: View {
                 let payment = lang["payment"] ?? "Payment"
                 ShoppingcartButton(text: payment)
                     .navigationDestination(isPresented: $showPayment) {
-                        PaymentView(showSelf: $showPayment)
+                        ReviewOrderView(showSelf: $showPayment)
                     }
             }
             

@@ -89,6 +89,7 @@ struct CheckoutView: View {
                 } else {
                     userCreate()
                 }
+                
             }) {
                 if settingPublic.value?.mobilDelivery == true {
                     let delivery = lang["delivery"] ?? "Delivery"
