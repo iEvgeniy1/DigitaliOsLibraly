@@ -13,6 +13,8 @@ struct SettingPublic: Codable {
     var googleMapKey: String?
     var addressSender: String?
     var returnPoints: Int?
+    var mobilDelivery: Bool?
+    var mobilDirectories: String?
     
     internal init(googleMapAddresses: String? = nil,
                   googleMapKey: String? = nil,

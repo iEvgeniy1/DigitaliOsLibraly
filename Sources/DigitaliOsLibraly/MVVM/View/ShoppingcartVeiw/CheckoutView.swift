@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CheckoutView: View {
     @StateObject var user: Load<User> = .init("/api/login/getUserBySession/")
+    @StateObject var settingPublic:  Load<SettingPublic> = .init("/api/checkout/settingPublic/")
     @Binding var showSelf: Bool
     @State var showDelivery: Bool = false
     @State var showLogin: Bool = false
@@ -89,11 +90,19 @@ struct CheckoutView: View {
                     userCreate()
                 }
             }) {
-                let delivery = lang["delivery"] ?? "Delivery"
-                ShoppingcartButton(text: delivery)
-                    .navigationDestination(isPresented: $showDelivery) {
-                        DeliveryView(showSelf: $showDelivery)
-                    }
+                if settingPublic.value?.mobilDelivery == true {
+                    let delivery = lang["delivery"] ?? "Delivery"
+                    ShoppingcartButton(text: delivery)
+                        .navigationDestination(isPresented: $showDelivery) {
+                            DeliveryView(showSelf: $showDelivery)
+                        }
+                } else {
+                    let delivery = lang["confirmation"] ?? "confirmation"
+                    ShoppingcartButton(text: delivery)
+                        .navigationDestination(isPresented: $showDelivery) {
+                            ReviewOrderView(showSelf: $showDelivery)
+                        }
+                }
             }
             
         }
@@ -116,6 +125,7 @@ struct CheckoutView: View {
                     phone = user.value?.phone ?? ""
                 }
             }
+            settingPublic.get()
         }
     }
     
