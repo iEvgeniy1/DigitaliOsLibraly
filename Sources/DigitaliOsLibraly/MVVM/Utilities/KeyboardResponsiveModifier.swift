@@ -23,7 +23,7 @@ public struct KeyboardResponsiveModifier: ViewModifier {
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
                     let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                     withAnimation(.default) {
-                        self.top = 35
+                        self.top = 75
                         self.bottom = value.height-75
                     }
                 }
